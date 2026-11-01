@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medora - Every dose, together</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cover.css') }}">
+</head>
+<body class="cover">
+  <img class="cover-bg"
+       src="{{ url_for('static', filename='images/Medora_coverpage.jpg') }}"
+       alt="An elderly woman smiling as she uses the Medora app, with a voice assistant on the table">
+
+  <header class="cover-top">
+    <div class="logo-badge">
+      <img src="{{ url_for('static', filename='images/Medora_Logo1.png') }}" alt="Medora">
+    </div>
+  </header>
+
+  <main class="cover-bottom">
+    <!-- Taglines will go here later -->
+    <div class="cover-actions">
+      <a class="cover-btn cover-btn-primary" href="{{ url_for('admin_login') }}">Login for Admin</a>
+      <a class="cover-btn cover-btn-light" href="{{ url_for('user_login') }}">Login for User</a>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Sign Up - Medora</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Admin Sign Up{% endblock %}
+{% block content %}
   <h1>Admin Sign Up</h1>
-
-  {% for message in get_flashed_messages() %}
-    <p>{{ message }}</p>
-  {% endfor %}
-
   <form method="POST">
-    <p><label>Name <input type="text" name="name" required></label></p>
-    <p><label>Email <input type="email" name="email" required></label></p>
-    <p><label>Phone <input type="tel" name="phone"></label></p>
-    <p><label>Password (min 8 characters) <input type="password" name="password" required></label></p>
+    <label>Name <input type="text" name="name" required></label>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Phone <input type="tel" name="phone"></label>
+    <label>Password (min 8 characters) <input type="password" name="password" required></label>
     <button type="submit">Create account</button>
   </form>
-
   <p>Already registered? <a href="{{ url_for('admin_login') }}">Log in</a></p>
-</body>
-</html>
+{% endblock %}

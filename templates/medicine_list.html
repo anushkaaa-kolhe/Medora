@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Medicines - Medora</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Medicines{% endblock %}
+{% block content %}
   <h1>Medicines for {{ recipient.name }}</h1>
-
-  {% for message in get_flashed_messages() %}
-    <p>{{ message }}</p>
-  {% endfor %}
-
-  <p><a href="{{ url_for('medicine_new', recipient_id=recipient.id) }}">+ Add medicine</a></p>
+  <p><a class="btn-small" href="{{ url_for('medicine_new', recipient_id=recipient.id) }}">+ Add medicine</a></p>
 
   {% if medicines %}
     {% for m in medicines %}
-      <div style="border:1px solid #999; padding:10px; margin-bottom:12px;">
+      <div class="card">
         <h3>{{ m.name }} {% if m.strength %}({{ m.strength }}){% endif %}</h3>
         {% if m.description %}<p>For: {{ m.description }}</p>{% endif %}
         {% if m.prescription_note %}<p>Doctor's note: {{ m.prescription_note }}</p>{% endif %}
@@ -41,5 +32,4 @@
   {% endif %}
 
   <p><a href="{{ url_for('recipient_list') }}">Back to recipients</a></p>
-</body>
-</html>
+{% endblock %}

@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Recipients - Medora</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Recipients{% endblock %}
+{% block content %}
   <h1>My Recipients</h1>
-
-  {% for message in get_flashed_messages() %}
-    <p>{{ message }}</p>
-  {% endfor %}
-
-  <p><a href="{{ url_for('recipient_new') }}">+ Add recipient</a></p>
+  <p><a class="btn-small" href="{{ url_for('recipient_new') }}">+ Add recipient</a></p>
 
   {% if recipients %}
-    <table border="1" cellpadding="6">
+    <table>
       <tr>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Age</th>
-        <th>Language</th>
-        <th>Emergency contact</th>
-        <th>Medicines</th>
+        <th>Name</th><th>Phone</th><th>Age</th>
+        <th>Language</th><th>Emergency contact</th><th>Medicines</th>
       </tr>
       {% for r in recipients %}
       <tr>
@@ -37,7 +24,4 @@
   {% else %}
     <p>No recipients yet.</p>
   {% endif %}
-
-  <p><a href="{{ url_for('admin_dashboard') }}">Back to dashboard</a></p>
-</body>
-</html>
+{% endblock %}

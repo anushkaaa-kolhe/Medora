@@ -60,13 +60,17 @@ def describe_schedule(s):
 app.add_template_global(describe_schedule)
 
 
+# ---------- Cover page ----------
+
 @app.route("/")
 def home():
-    return (
-        "<h1>Medora is running!</h1>"
-        "<p><a href='/admin/login'>Admin login</a></p>"
-        "<p><a href='/admin/register'>Admin sign up</a></p>"
-    )
+    return render_template("index.html")
+
+
+@app.route("/user/login")
+def user_login():
+    # Placeholder until we build the OTP login in the next phase
+    return "<h1>User login is coming soon.</h1><p><a href='/'>Back</a></p>"
 
 
 # ---------- Admin account ----------
@@ -229,7 +233,6 @@ def medicine_new(recipient_id):
             repeat_type = "daily"
         stock_count = int(stock_raw) if stock_raw.isdigit() else None
 
-        # Dose times (blank ones are ignored, duplicates removed)
         times = set()
         for raw in request.form.getlist("times"):
             raw = raw.strip()
@@ -241,7 +244,6 @@ def medicine_new(recipient_id):
         if not times:
             return fail("Add at least one dose time.")
 
-        # Dates
         try:
             start_date = date.fromisoformat(request.form.get("start_date", ""))
         except ValueError:
@@ -257,7 +259,6 @@ def medicine_new(recipient_id):
             if end_date < start_date:
                 return fail("The end date cannot be before the start date.")
 
-        # Days of the week (only for weekly)
         days_of_week = None
         if repeat_type == "weekly":
             valid_days = {str(i) for i in range(7)}
@@ -276,7 +277,7 @@ def medicine_new(recipient_id):
             stock_count=stock_count,
         )
         db.session.add(medicine)
-        db.session.flush()  # gives the medicine an id before we commit
+        db.session.flush()
 
         for t in sorted(times):
             db.session.add(
@@ -313,6 +314,5 @@ def medicine_stop(recipient_id, medicine_id):
     flash(f"{medicine.name} was stopped.")
     return redirect(url_for("medicine_list", recipient_id=recipient.id))
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

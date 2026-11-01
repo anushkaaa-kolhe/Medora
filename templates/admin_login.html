@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Login - Medora</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Admin Login{% endblock %}
+{% block content %}
   <h1>Admin Login</h1>
-
-  {% for message in get_flashed_messages() %}
-    <p>{{ message }}</p>
-  {% endfor %}
-
   <form method="POST">
-    <p><label>Email <input type="email" name="email" required></label></p>
-    <p><label>Password <input type="password" name="password" required></label></p>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Password <input type="password" name="password" required></label>
     <button type="submit">Log in</button>
   </form>
-
   <p>New here? <a href="{{ url_for('admin_register') }}">Create an account</a></p>
-</body>
-</html>
+{% endblock %}

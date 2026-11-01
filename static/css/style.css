@@ -1,0 +1,253 @@
+:root {
+  --cream: #FBF6EC;
+  --beige: #F1E6D2;
+  --sand: #D9C9AC;
+  --brown: #3B2F25;
+  --sage: #2F5D62;
+  --sage-dark: #234649;
+  --terracotta: #C8643C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--sage-dark);
+}
+
+/* ---------- Header and footer ---------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: var(--beige);
+  border-bottom: 1px solid var(--sand);
+}
+
+.logo {
+  height: 72px;
+  width: auto;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 24px 32px;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--sand);
+  background: var(--beige);
+}
+
+/* ---------- Cover page ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.tagline {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.lead {
+  font-size: 1.15rem;
+  margin: 0 0 32px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 340px;
+}
+
+.btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 18px 24px;
+  border-radius: 14px;
+  border: 2px solid var(--sage);
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--terracotta);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  background: var(--sage);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--sage-dark);
+  border-color: var(--sage-dark);
+}
+
+.btn-secondary {
+  background: var(--cream);
+  color: var(--sage-dark);
+}
+
+.btn-secondary:hover {
+  background: var(--beige);
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  border: 1px solid var(--sand);
+  box-shadow: 0 8px 24px rgba(59, 47, 37, 0.15);
+}
+
+/* ---------- Inner pages ---------- */
+.nav {
+  margin-left: auto;
+  display: flex;
+  gap: 24px;
+}
+
+.nav a {
+  color: var(--sage-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.page h1 {
+  margin-top: 0;
+}
+
+.card {
+  background: var(--beige);
+  border: 1px solid var(--sand);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.flash {
+  background: #FFF3E0;
+  border: 1px solid var(--terracotta);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+input[type="text"], input[type="email"], input[type="tel"],
+input[type="password"], input[type="number"], input[type="date"],
+input[type="time"], select {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 6px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid var(--sand);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--brown);
+}
+
+input:focus, select:focus {
+  outline: 3px solid var(--sage);
+  border-color: var(--sage);
+}
+
+button, .btn-small {
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: 2px solid var(--sage);
+  background: var(--sage);
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button:hover, .btn-small:hover {
+  background: var(--sage-dark);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--sand);
+}
+
+th {
+  background: var(--beige);
+}
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 28px 20px;
+    gap: 28px;
+  }
+
+  .tagline {
+    font-size: 1.7rem;
+  }
+
+  .actions {
+    max-width: none;
+  }
+
+  .site-header {
+    padding: 12px 20px;
+  }
+
+  .nav {
+    gap: 14px;
+    font-size: 0.95rem;
+  }
+}
