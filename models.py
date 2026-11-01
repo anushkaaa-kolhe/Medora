@@ -24,9 +24,9 @@ class Recipient(db.Model):
     admin_id = db.Column(db.Integer, db.ForeignKey("admin.id"), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.String(15), unique=True, nullable=False)
-    email = db.Column(db.String(120))  # optional
+    email = db.Column(db.String(120))
     age = db.Column(db.Integer)
-    preferred_language = db.Column(db.String(2), default="en")  # en / hi / mr
+    preferred_language = db.Column(db.String(2), default="en")
     emergency_contact_phone = db.Column(db.String(15))
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=utcnow)
@@ -41,18 +41,16 @@ class OTP(db.Model):
     used = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=utcnow)
 
-    from datetime import date  # you can also put this at the top with other imports
-
 
 class Medicine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     recipient_id = db.Column(db.Integer, db.ForeignKey("recipient.id"), nullable=False)
     name = db.Column(db.String(100), nullable=False)
-    strength = db.Column(db.String(50))            # e.g. "500 mg"
-    description = db.Column(db.String(255))        # what it is for
-    prescription_note = db.Column(db.String(255))  # doctor's instruction
-    with_food = db.Column(db.String(20))           # "before", "after", "any"
-    stock_count = db.Column(db.Integer)            # tablets left, for refill alerts
+    strength = db.Column(db.String(50))
+    description = db.Column(db.String(255))
+    prescription_note = db.Column(db.String(255))
+    with_food = db.Column(db.String(20))
+    stock_count = db.Column(db.Integer)
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=utcnow)
 
@@ -63,11 +61,11 @@ class Medicine(db.Model):
 class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     medicine_id = db.Column(db.Integer, db.ForeignKey("medicine.id"), nullable=False)
-    time_of_day = db.Column(db.Time, nullable=False)           # e.g. 08:00
-    repeat_type = db.Column(db.String(10), default="daily")    # daily / weekly / once
-    days_of_week = db.Column(db.String(20))                    # "0,2,4" (Mon=0), only for weekly
+    time_of_day = db.Column(db.Time, nullable=False)
+    repeat_type = db.Column(db.String(10), default="daily")
+    days_of_week = db.Column(db.String(20))
     start_date = db.Column(db.Date, nullable=False, default=date.today)
-    end_date = db.Column(db.Date)                              # empty = no end
+    end_date = db.Column(db.Date)
     is_active = db.Column(db.Boolean, default=True)
 
     dose_logs = db.relationship("DoseLog", backref="schedule", lazy=True)
@@ -78,12 +76,12 @@ class DoseLog(db.Model):
     schedule_id = db.Column(db.Integer, db.ForeignKey("schedule.id"), nullable=False)
     recipient_id = db.Column(db.Integer, db.ForeignKey("recipient.id"), nullable=False, index=True)
     scheduled_for = db.Column(db.DateTime, nullable=False, index=True)
-    status = db.Column(db.String(10), default="due")   # due / taken / missed / skipped
+    status = db.Column(db.String(10), default="due")
     responded_at = db.Column(db.DateTime)
     snooze_count = db.Column(db.Integer, default=0)
     snoozed_until = db.Column(db.DateTime)
     skip_reason = db.Column(db.String(255))
-    source = db.Column(db.String(10))                  # button / voice / alexa / system
+    source = db.Column(db.String(10))
     created_at = db.Column(db.DateTime, default=utcnow)
 
     __table_args__ = (
