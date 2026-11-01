@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Medicine - Medora</title>
+</head>
+<body>
+  <h1>Add medicine for {{ recipient.name }}</h1>
+
+  {% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+  {% endfor %}
+
+  <form method="POST">
+    <p><label>Medicine name <input type="text" name="name" required></label></p>
+    <p><label>Strength (e.g. 500 mg) <input type="text" name="strength"></label></p>
+    <p><label>What is it for? <input type="text" name="description"></label></p>
+    <p><label>Doctor's note <input type="text" name="prescription_note"></label></p>
+    <p>
+      <label>Take
+        <select name="with_food">
+          <option value="any">Any time</option>
+          <option value="before">Before food</option>
+          <option value="after">After food</option>
+        </select>
+      </label>
+    </p>
+    <p><label>Tablets in stock <input type="number" name="stock_count" min="0"></label></p>
+
+    <hr>
+    <h3>Schedule</h3>
+
+    <p>
+      <label>Times per day
+        <select id="times_per_day">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </label>
+    </p>
+
+    {% for i in range(4) %}
+      <p class="time-row">
+        <label>Dose time {{ i + 1 }} <input type="time" name="times"></label>
+      </p>
+    {% endfor %}
+
+    <p>
+      <label>Repeat
+        <select name="repeat_type" id="repeat_type">
+          <option value="daily">Every day</option>
+          <option value="weekly">Specific days of the week</option>
+          <option value="once">Only once</option>
+        </select>
+      </label>
+    </p>
+
+    <p id="days-row" style="display:none;">
+      Days:
+      <label><input type="checkbox" name="days" value="0"> Mon</label>
+      <label><input type="checkbox" name="days" value="1"> Tue</label>
+      <label><input type="checkbox" name="days" value="2"> Wed</label>
+      <label><input type="checkbox" name="days" value="3"> Thu</label>
+      <label><input type="checkbox" name="days" value="4"> Fri</label>
+      <label><input type="checkbox" name="days" value="5"> Sat</label>
+      <label><input type="checkbox" name="days" value="6"> Sun</label>
+    </p>
+
+    <p><label>Start date <input type="date" name="start_date" value="{{ today }}"></label></p>
+    <p id="end-row"><label>End date (optional) <input type="date" name="end_date"></label></p>
+
+    <button type="submit">Save medicine</button>
+  </form>
+
+  <p><a href="{{ url_for('medicine_list', recipient_id=recipient.id) }}">Cancel</a></p>
+
+  <script>
+    const timesSelect = document.getElementById("times_per_day");
+    const timeRows = document.querySelectorAll(".time-row");
+    const repeatSelect = document.getElementById("repeat_type");
+    const daysRow = document.getElementById("days-row");
+    const endRow = document.getElementById("end-row");
+
+    function updateTimes() {
+      const n = parseInt(timesSelect.value, 10);
+      timeRows.forEach(function (row, i) {
+        const show = i < n;
+        row.style.display = show ? "" : "none";
+        row.querySelector("input").disabled = !show;  // disabled inputs are not submitted
+      });
+    }
+
+    function updateRepeat() {
+      const v = repeatSelect.value;
+      daysRow.style.display = (v === "weekly") ? "" : "none";
+      endRow.style.display = (v === "once") ? "none" : "";
+    }
+
+    timesSelect.addEventListener("change", updateTimes);
+    repeatSelect.addEventListener("change", updateRepeat);
+    updateTimes();
+    updateRepeat();
+  </script>
+</body>
+</html>

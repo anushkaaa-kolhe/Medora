@@ -21,6 +21,7 @@
         <th>Age</th>
         <th>Language</th>
         <th>Emergency contact</th>
+        <th>Medicines</th>
       </tr>
       {% for r in recipients %}
       <tr>
@@ -29,6 +30,7 @@
         <td>{{ r.age or "-" }}</td>
         <td>{{ r.preferred_language }}</td>
         <td>{{ r.emergency_contact_phone or "-" }}</td>
+        <td><a href="{{ url_for('medicine_list', recipient_id=r.id) }}">Manage</a></td>
       </tr>
       {% endfor %}
     </table>
